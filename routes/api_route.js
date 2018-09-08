@@ -5,16 +5,16 @@ module.exports = function(app) {
 
     // Displays all reservation
     app.get("/api/tables", function(req, res) {
-        return res.json(tableData);
+        res.json(tableData);
     });
 
     // Displays the waitlist
     app.get("/api/waitlist", function(req, res) {
-        return res.json(waitlistData);
+        res.json(waitlistData);
     });
 
     // Post to the tables
-    app.post("api/tables", function(req, res) {
+    app.post("/api/tables", function(req, res) {
         if (tableData.length < 5) {
             tableData.push(req.body);
             res.json(true);
