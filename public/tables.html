@@ -110,15 +110,17 @@
     }
     
     function clearTable() {
-        alert("Clearing...");
-    
         $.ajax({ url: "/api/clear", method: "POST" }).then(function () {
             $("#waitList").empty();
             $("#tableList").empty();
         });
     }
     
-    $("#clear").on("click", clearTable);
+    $("#clear").on("click", function() {
+        alert("Clearing...");
+        clearTable()
+        location.reload();
+    });
     
     runTableQuery();
     runWaitListQuery();

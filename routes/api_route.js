@@ -23,4 +23,10 @@ module.exports = function(app) {
             res.json(false);
         }
     })
+
+    // Clear Tables
+    app.post("/api/clear", function() {
+        tableData = []
+        waitlistData = []
+    })
 }
