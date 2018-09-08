@@ -60,7 +60,12 @@
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!-- <script type="module">
+    import { textAlert } from "../twilio.js"
+</script> -->
 <script type="text/javascript">
+
+    // console.log(textAlert)
     function runTableQuery() {
         $.ajax({ url: "/api/tables", method: "GET" })
         .then(function (tableData) {
@@ -74,16 +79,31 @@
                 var listItem = $("<li class='list-group-item mt-4'>");
                 listItem.append(
                     $("<h2>").text("Table #" + (i + 1)),
+                    $('<button onclick="popOff()">').text('Remove'),
                     $("<hr>"),
-                    $("<h2>").text("ID: " + tableData[i].customerID),
-                    $("<h2>").text("Name: " + tableData[i].customerName),
-                    $("<h2>").text("Email: " + tableData[i].customerEmail),
-                    $("<h2>").text("Phone: " + tableData[i].phoneNumber)
+                    $("<h2 class='table-id'>").text("ID: " + tableData[i].customerID),
+                    $("<h2 class='table-name'>").text("Name: " + tableData[i].customerName),
+                    $("<h2 class='table-email'>").text("Email: " + tableData[i].customerEmail),
+                    $("<h2 class='table-phone'>").text("Phone: " + tableData[i].phoneNumber)
                 );
                 tableList.append(listItem);
             }
         });
     }
+
+    let count = 0
+    function popOff() {
+        const child = event.target.parentElement.children
+        $.ajax({ url: "/api/waitlist", method: "GET" })
+        .then((res) => {
+            child[3].innerHTML = "ID: " + (res[count]["customerID"])
+            child[4].innerHTML = "Name: " + (res[count]["customerName"])
+            child[5].innerHTML = "Email: " + (res[count]["customerEmail"])
+            child[6].innerHTML = "Phone: " + (res[count]["phoneNumber"])
+            count++
+        })
+    }
+    
     
     function runWaitListQuery() {
         $.ajax({ url: "/api/waitlist", method: "GET" })

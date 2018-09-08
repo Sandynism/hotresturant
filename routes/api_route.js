@@ -1,6 +1,7 @@
 var tableData = require("../data/table-data.js")
 var waitlistData = require("../data/waitinglist-data.js")
 
+
 module.exports = function(app) {
 
     // Displays all reservation
